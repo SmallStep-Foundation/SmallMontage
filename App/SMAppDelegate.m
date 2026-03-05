@@ -8,6 +8,7 @@
 #import "SSAppDelegate.h"
 #import "SSHostApplication.h"
 #import "SSMainMenu.h"
+#import "SSAboutPanel.h"
 
 @interface SMAppDelegate (Private)
 - (void)buildMenu;
@@ -34,6 +35,9 @@
 #if !TARGET_OS_IPHONE
     SSMainMenu *menu = [[SSMainMenu alloc] init];
     [menu setAppName:@"SmallMontage"];
+    [menu setAboutAppName:@"SmallMontage"];
+    [menu setAboutVersion:@"1.0"];
+    [menu setAboutTarget:self];
     NSArray *items = [NSArray arrayWithObjects:
         [SSMainMenuItem itemWithTitle:@"New" action:@selector(newDocument:) keyEquivalent:@"n" modifierMask:NSCommandKeyMask target:self],
         [SSMainMenuItem itemWithTitle:@"Open…" action:@selector(openDocument:) keyEquivalent:@"o" modifierMask:NSCommandKeyMask target:self],
@@ -72,6 +76,11 @@
 - (void)exportDocument:(id)sender {
     (void)sender;
     [_mainWindow exportDocument];
+}
+
+- (void)showAbout:(id)sender {
+    (void)sender;
+    [SSAboutPanel showWithAppName:@"SmallMontage" version:@"1.0"];
 }
 
 #if defined(GNUSTEP) && !__has_feature(objc_arc)
